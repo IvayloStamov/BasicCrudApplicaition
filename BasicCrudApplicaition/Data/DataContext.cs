@@ -1,7 +1,7 @@
 ﻿using BasicCrudApplicaition.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BasicCrudApplicaition.Date
+namespace BasicCrudApplicaition.Data
 {
     public class DataContext : DbContext
     {

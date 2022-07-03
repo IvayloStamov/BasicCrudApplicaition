@@ -11,7 +11,6 @@ namespace BasicCrudApplicaition.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private static List<Person> people = new List<Person>() { };
 
         private readonly DataContext _context;
         public PersonController(DataContext context)

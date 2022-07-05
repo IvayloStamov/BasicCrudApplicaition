@@ -10,7 +10,11 @@ namespace BasicCrudApplicaition.Data
 
         }
 
-        public DbSet<Person> People { get; set; }
+        public DbSet<User> People { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>().ToTable("Users");
+        }
     }
 }

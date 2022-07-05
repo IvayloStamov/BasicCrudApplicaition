@@ -9,39 +9,39 @@ namespace BasicCrudApplicaition.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonController : ControllerBase
+    public class UserController : ControllerBase
     {
 
         private readonly DataContext _context;
-        public PersonController(DataContext context)
+        public UserController(DataContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Person>>> GetAll()
+        public async Task<ActionResult<List<User>>> GetAll()
         {
             return Ok(await _context.People.ToListAsync());  
         }
 
         [HttpGet("{Id}")]
-        public async Task<ActionResult<Person>> Get(int Id)
+        public async Task<ActionResult<User>> Get(int Id)
         {
-            Person person = await _context.People.FindAsync(Id);
-            if(person != null)
+            User user = await _context.People.FindAsync(Id);
+            if(user != null)
             {
-                return Ok(person);  
+                return Ok(user);  
             }
-            return BadRequest($"No Person with an Id {Id} found.");
+            return BadRequest($"No user with an Id {Id} found.");
         }
 
          
         [HttpPost]
-        public async Task<ActionResult<List<Person>>> Add(Person input)
+        public async Task<ActionResult<List<User>>> Add(User input)
         {            
             if(await _context.People.AnyAsync(x => x.Id == input.Id))
             {
-                return BadRequest($"There is already a person with the Id {input.Id}");
+                return BadRequest($"There is already a user with the Id {input.Id}");
             }          
             
             _context.People.Add(input);
@@ -52,30 +52,30 @@ namespace BasicCrudApplicaition.Controllers
         }
 
         [HttpDelete("{Id}")]
-        public async Task<ActionResult<List<Person>>> Delete(int Id)
+        public async Task<ActionResult<List<User>>> Delete(int Id)
         {
-            var person = await _context.People.FindAsync(Id);
-            if (person != null)
+            var user = await _context.People.FindAsync(Id);
+            if (user != null)
             {
-                _context.People.Remove(person);
+                _context.People.Remove(user);
                 await _context.SaveChangesAsync();
                 return Ok(await _context.People.ToListAsync());
             }
-            return BadRequest($"No Person with an Id {Id} found.");
+            return BadRequest($"No user with an Id {Id} found.");
         }
 
         [HttpPut]
-        public async Task<ActionResult<Person>> Update(Person input)
+        public async Task<ActionResult<User>> Update(User input)
         {
-            var person = await _context.People.FindAsync(input.Id);
-            if(person == null)
+            var user = await _context.People.FindAsync(input.Id);
+            if(user == null)
             {
                 return BadRequest("Person not found");
             }
-            person.FirstName = input.FirstName;
-            person.LastName = input.LastName;
-            person.Age = input.Age;
-            person.City = input.City;
+            user.FirstName = input.FirstName;
+            user.LastName = input.LastName;
+            user.Age = input.Age;
+            user.City = input.City;
 
             await _context.SaveChangesAsync();
 

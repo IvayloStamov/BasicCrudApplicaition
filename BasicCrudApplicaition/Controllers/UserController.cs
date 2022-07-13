@@ -24,8 +24,8 @@ namespace BasicCrudApplicaition.Controllers
             return Ok(await _context.Users.ToListAsync());  
         }
 
-        [HttpGet("{Id}")]
-        public async Task<ActionResult<User>> Get(int Id)
+        [HttpGet("{Id}/{Name}")]
+        public async Task<ActionResult<User>> Get(int Id, string Name)
         {
             User user = await _context.Users.FindAsync(Id);
             if(user != null)
@@ -39,9 +39,9 @@ namespace BasicCrudApplicaition.Controllers
         [HttpPost]
         public async Task<ActionResult<List<User>>> Add(User input)
         {            
-            if(await _context.Users.AnyAsync(x => x.Id == input.Id))
+            if(await _context.Users.AnyAsync(x => x.UserId == input.UserId))
             {
-                return BadRequest($"There is already a user with the Id {input.Id}");
+                return BadRequest($"There is already a user with the Id {input.UserId}");
             }          
             
             _context.Users.Add(input);
@@ -67,7 +67,7 @@ namespace BasicCrudApplicaition.Controllers
         [HttpPut]
         public async Task<ActionResult<User>> Update(User input)
         {
-            var user = await _context.Users.FindAsync(input.Id);
+            var user = await _context.Users.FindAsync(input.UserId);
             if(user == null)
             {
                 return BadRequest("Person not found");

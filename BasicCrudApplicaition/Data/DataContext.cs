@@ -11,6 +11,7 @@ namespace BasicCrudApplicaition.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
